@@ -1,1 +1,18 @@
 CLAUDE.md
+
+# secret
+nginx/certs/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# CMake build output
+cpp/Build/
+cpp/ExternalLib/Build/
+
+# CMake cache
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
