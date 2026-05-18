@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
-project(jnusimple-project)
+project(suseong-project)
 
-set(TARGET_NAME jnusimple-project)
+set(TARGET_NAME suseong-project)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++20 -fPIC")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../../Build/LinuxRelease)

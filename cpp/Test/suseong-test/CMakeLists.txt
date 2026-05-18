@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
-project(jnusimple-test)
+project(suseong-test)
 
-set(TARGET_NAME jnusimple-test)
+set(TARGET_NAME suseong-test)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++20 -fPIC")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../../Build/LinuxRelease)
@@ -39,7 +39,7 @@ endfunction(include_to_list)
 file(GLOB_RECURSE SOURCES *.cpp *.c)
 exclude_from_list(SOURCES "*/cmake-build-debug/*")
 exclude_from_list(SOURCES "*/CMakeFiles/*")
-set(PRODUCT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../Src/jnusimple-project")
+set(PRODUCT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../Src/suseong-project")
 file(GLOB_RECURSE PRODUCT_SOURCES "${PRODUCT_DIR}/*.cpp")
 list(FILTER PRODUCT_SOURCES EXCLUDE REGEX "main.cpp$")
 list(APPEND SOURCES ${PRODUCT_SOURCES})

@@ -6,7 +6,7 @@ class Test
 {
 public:
     static Test& getInstance();
-    Jnu(const Test& rhs) = delete;
+    Test(const Test& rhs) = delete;
     Test operator=(const Test& rhs) = delete;
     
 	std::string hello();

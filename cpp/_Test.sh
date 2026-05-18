@@ -41,8 +41,8 @@ trap 'error_handler $LINENO' ERR
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 JOBS="${JOBS:-16}"
 
-TEST_SOURCE_DIR="$ROOT/Test/jnusimple-test"
-TEST_EXECUTABLE="$ROOT/Build/LinuxRelease/jnusimple-test"
+TEST_SOURCE_DIR="$ROOT/Test/suseong-test"
+TEST_EXECUTABLE="$ROOT/Build/LinuxRelease/suseong-test"
 export CXXFLAGS="${CXXFLAGS} -fdiagnostics-color=always"
 
 build() {

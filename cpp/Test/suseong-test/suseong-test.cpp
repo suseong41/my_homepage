@@ -6,23 +6,23 @@
 
 TEST(suseongtest, prt)
 {
-	Jnu& jnu = Jnu::getInstance();
-	std::string prt = jnu.hello();
+	::Test& obj = ::Test::getInstance();
+	std::string prt = obj.hello();
 	EXPECT_EQ(prt, "Hello World");
 }
 
 TEST(suseongtest, sum)
 {
-    Jnu& jnu = Jnu::getInstance();
+    ::Test& obj = ::Test::getInstance();
 	size_t a = 10;
 	size_t b = 20;
-	size_t result = jnu.sum(a, b);
+	size_t result = obj.sum(a, b);
 	EXPECT_EQ(result, 30);
 }
 
 TEST(suseongtest, singleton)
 {
-    Jnu& jnu1 = Jnu::getInstance();
-    Jnu& jnu2 = Jnu::getInstance();
-    EXPECT_EQ(&jnu1, &jnu2);
+    ::Test& obj1 = ::Test::getInstance();
+    ::Test& obj2 = ::Test::getInstance();
+    EXPECT_EQ(&obj1, &obj2);
 }
