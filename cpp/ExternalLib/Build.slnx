@@ -1,0 +1,12 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="DebugMT" />
+    <BuildType Name="Release" />
+    <BuildType Name="ReleaseMT" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="gTest/gTest.vcxproj" Id="71cc3bb3-7613-4154-84f2-f53a66c77f60" />
+  <Project Path="gTest/gTest_main.vcxproj" Id="42adbd91-a3b6-4cd9-a7a0-fd537079a033" />
+</Solution>
