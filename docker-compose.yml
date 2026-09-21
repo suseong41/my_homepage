@@ -22,7 +22,7 @@ services:
   # HTML 정적 보안 스캐너 — 빌드하지 않고 배포된 이미지를 받아 쓴다.
   # 버전을 고정한다: latest 로 두면 재시작할 때마다 다른 것이 돌 수 있다.
   sha:
-    image: suseong41/sha:0.3.0
+    image: sha:local  # 임시 — 실패 문구 확인
     expose:
       - "8080"
     read_only: true          # 디스크에 쓰지 않는다

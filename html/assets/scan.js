@@ -40,8 +40,10 @@ const engine = {
     this.cursor = line(this.lines, '');
     this.cursor.appendChild(document.createElement('span')).className = 'cursor';
   },
-  add(text, className = 'tag') {
+  add(text, className = 'tag', label) {
     const p = line(this.lines, text, className);
+    if (label) p.dataset.label = label; // [HIGH] 처럼 앞에 붙는다
+
     this.lines.insertBefore(this.cursor, null); // 커서를 늘 맨 아래로
     this.lines.scrollTop = this.lines.scrollHeight;
     return p;
@@ -58,18 +60,10 @@ const engine = {
 
 // ── 결과 표 ───────────────────────────────
 
+// 표는 자세한 내용(제목·증거)만 맡는다. 무엇을 찾았는지는 터미널이 말한다.
 function renderScan(container, data) {
   container.replaceChildren();
-  line(container, `대상: ${data.url}`, 'scan-target'); // 링크로 만들지 않는다
-
-  for (const note of data.notes) line(container, note, 'scan-note');
-
-  if (data.findings.length === 0) {
-    line(container, data.notes.length > 0
-      ? '발견 없음 — 다만 위 참고 때문에 이 결과가 페이지 전체를 대표하지 않습니다.'
-      : '발견 없음');
-    return;
-  }
+  if (data.findings.length === 0) return;
 
   const table = document.createElement('table');
   table.className = 'scan-table';
@@ -112,11 +106,28 @@ function show(ev) {
       if (ev.final && ev.final !== ev.url) engine.add(`최종 주소 ${ev.final}`);
       break;
     case 'done':
+      showResult(ev.result);
       engine.add(`완료 — 전체 ${ev.ms} ms`);
       break;
     case 'error':
       engine.add(ev.text, 'bad');
       break;
+  }
+}
+
+// 발견과 참고를 로그에 찍는다 — 등급·위치·규칙까지만, 증거는 표가 맡는다.
+function showResult(result) {
+  engine.add('===== 결과 =====', 'head');
+  for (const note of result.notes) engine.add(note, 'note');
+
+  if (result.findings.length === 0) {
+    engine.add(result.notes.length > 0
+      ? '발견 없음 — 다만 위 참고 때문에 이 결과가 페이지 전체를 대표하지 않습니다'
+      : '발견 없음');
+    return;
+  }
+  for (const f of result.findings) {
+    engine.add(`${f.line}:${f.col}  ${f.code}`, `lv ${SEV_CLASS[f.severity] ?? 'sev-info'}`, f.severity);
   }
 }
 

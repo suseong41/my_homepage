@@ -547,6 +547,20 @@
   .engine-lines p.bad { border-left-color: #ef4444; color: #fca5a5; }
   .engine-lines p.bad::before { content: "[FAIL] "; color: #ef4444; }
 
+  .engine-lines p.note { border-left-color: #f59e0b; color: #fcd34d; }
+  .engine-lines p.note::before { content: "[NOTE] "; color: #f59e0b; }
+
+  /* 발견 한 줄 — 앞머리는 등급 이름이 그대로 들어간다 */
+  .engine-lines p.lv::before { content: "[" attr(data-label) "] "; font-weight: 700; }
+  .engine-lines p.sev-high   { border-left-color: #ef4444; }
+  .engine-lines p.sev-high::before   { color: #f87171; }
+  .engine-lines p.sev-medium { border-left-color: #f97316; }
+  .engine-lines p.sev-medium::before { color: #fb923c; }
+  .engine-lines p.sev-low    { border-left-color: #38bdf8; }
+  .engine-lines p.sev-low::before    { color: #7dd3fc; }
+  .engine-lines p.sev-info   { border-left-color: #64748b; }
+  .engine-lines p.sev-info::before   { color: #94a3b8; }
+
   .engine-status { font-weight: 700; color: #facc15; }
   .engine-status.done { color: #4ade80; }
   .engine-status.bad  { color: #ef4444; }
