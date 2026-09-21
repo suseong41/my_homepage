@@ -10,10 +10,26 @@ services:
       - ./nginx/certs:/etc/nginx/certs:ro
     depends_on:
       - api
+      - sha
     restart: unless-stopped
 
   api:
     build: ./api
     expose:
       - "8000"
+    restart: unless-stopped
+
+  # HTML 정적 보안 스캐너 — 빌드하지 않고 배포된 이미지를 받아 쓴다.
+  # 버전을 고정한다: latest 로 두면 재시작할 때마다 다른 것이 돌 수 있다.
+  sha:
+    image: suseong41/sha:0.3.0
+    expose:
+      - "8080"
+    read_only: true          # 디스크에 쓰지 않는다
+    cap_drop:
+      - ALL                  # 커널 권한 전부 뺀다 (이미지는 이미 비루트 UID 65532)
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 256m          # 동시 스캔 4개 기준 — 측정값 (SHA §12.49)
+    pids_limit: 64
     restart: unless-stopped

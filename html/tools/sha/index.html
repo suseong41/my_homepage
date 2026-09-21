@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHA — suseong.org</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+  <!--# include virtual="/_sidebar.html" -->
+
+  <main>
+    <section id="sha">
+      <div class="section-label">Tools</div>
+      <h2>SHA</h2>
+      <p class="scan-desc">
+        HTML에서 악성 행위를 분석하는 탐지기입니다.<br>
+        URL을 입력해 사용해 보세요.
+      </p>
+
+      <form class="scan-form" id="scan-form">
+        <input type="text" id="scan-url" placeholder="여기에 URL을 입력해주세요" required
+               autocomplete="off" spellcheck="false" inputmode="url" maxlength="2048">
+        <button type="submit" id="scan-button">검사</button>
+      </form>
+
+      <div class="engine" id="engine" hidden>
+        <div class="engine-head">
+          <span class="engine-dots"><i></i><i></i><i></i></span>
+          <span>ENGINE_LOGS</span>
+        </div>
+        <div class="engine-lines" id="engine-lines"></div>
+        <div class="engine-foot">
+          <span>STATUS</span>
+          <span class="engine-status" id="engine-status">RUNNING</span>
+        </div>
+      </div>
+
+      <div class="scan-result" id="scan-result"></div>
+    </section>
+  </main>
+
+  <script src="/assets/scan.js"></script>
+</body>
+</html>
