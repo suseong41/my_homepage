@@ -504,6 +504,17 @@
   }
   .scan-table td.where { color: var(--muted); white-space: nowrap; }
   .scan-table td.code { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .scan-row { cursor: pointer; }
+  .scan-row:hover td { background: var(--bg); }
+  .scan-row td.code::after { content: " \25be"; color: var(--muted); }
+  .scan-row.open td.code::after { content: " \25b4"; }
+  .scan-detail td { background: var(--bg); padding: 0.85rem 0.9rem; }
+  .scan-why { font-size: 0.85rem; line-height: 1.8; word-break: normal; }
+  .scan-why + .scan-why { margin-top: 0.7rem; }
+  .scan-why b {
+    display: block; color: var(--muted); font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
   .sev {
     display: inline-block; padding: 0.1rem 0.5rem; border-radius: 999px;
     font-size: 0.75rem; font-weight: 700; white-space: nowrap;

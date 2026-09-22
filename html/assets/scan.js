@@ -82,8 +82,44 @@ function renderScan(container, data) {
     ev.className = 'code';
     ev.textContent = f.evidence;
     what.appendChild(ev);
+
+    const rule = data.rules?.[f.code];
+    if (!rule) continue;
+
+    row.className = 'scan-row';
+    row.tabIndex = 0;
+
+    const detail = table.insertRow();
+    detail.className = 'scan-detail';
+    detail.hidden = true;
+    const cell = detail.insertCell();
+    cell.colSpan = 4;
+    cell.append(explain('왜 위험한가', rule.why), explain('어떻게 고치나', rule.fix));
+
+    const toggle = () => {
+      detail.hidden = !detail.hidden;
+      row.classList.toggle('open', !detail.hidden);
+    };
+    row.addEventListener('click', toggle);
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
   }
   container.appendChild(table);
+}
+
+function explain(label, text) {
+  const p = document.createElement('p');
+  p.className = 'scan-why';
+  const b = document.createElement('b');
+  b.textContent = label;
+  const s = document.createElement('span');
+  s.textContent = text;
+  p.append(b, s);
+  return p;
 }
 
 // ── 흘려받기 ───────────────────────────────
