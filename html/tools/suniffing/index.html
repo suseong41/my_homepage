@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuNiffing — suseong.org</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+  <!--# include virtual="/_sidebar.html" -->
+
+  <main>
+    <section id="suniffing">
+      <div class="section-label">Tools</div>
+      <h2>SuNiffing</h2>
+      <p class="suniff-desc">
+        Galaxy S10(nexmon)의 monitor mode로 주변 WiFi를 스캔하고, 비콘의 <b>RSN 정보(암호화·인증·PMF)</b>를 파싱해
+        <b>취약점을 색으로 판정</b>하는 점검 스캐너입니다.<br>
+        왼쪽 폰을 <b>직접 눌러</b> 앱 흐름을 따라가 보세요 — <span class="warn">전부 시뮬레이션이며 네트워크와 통신하지 않습니다. 인가된 점검·교육 목적입니다.</span>
+      </p>
+
+      <div class="suniff">
+        <div class="sniff-stage">
+          <div class="phone"><div class="screen">
+            <div class="statusbar"><span>SuNiffing</span><span>11:03</span></div>
+            <div class="topbar"><div class="devfield">wlan0</div><div class="startbtn" id="startBtn">▶ Start</div></div>
+            <div class="seg"><div class="on">AP</div><div>STATION</div></div>
+            <div class="banner" id="banner" hidden></div>
+            <div class="list" id="list"><div class="hint" id="hint">▶ Start 를 눌러<br>스캔을 시작하세요</div></div>
+            <div class="chchip" id="chchip" hidden>CH:01</div>
+
+            <div class="overlay" id="bandPop" hidden><div class="card2">
+              <h4>캡처할 주파수 대역</h4>
+              <button class="band" data-band="24"><b>2.4 GHz</b><br><small>채널 1~13</small></button>
+              <button class="band" data-band="5"><b>5 GHz</b><br><small>채널 36~165</small></button>
+              <button class="band" data-band="dual"><b>Dual</b><br><small>2.4 + 5 GHz · 기본</small></button>
+            </div></div>
+
+            <div class="overlay" id="ctxPop" hidden><div class="menu">
+              <div class="mitem" data-act="copyb">Copy BSSID</div>
+              <div class="mitem" data-act="copye">Copy ESSID</div>
+              <div class="msep"></div>
+              <div class="mitem" data-act="deauth">Deauth Attack</div>
+              <div class="mitem" data-act="auth">Auth Attack</div>
+              <div class="mitem" data-act="csa">CSA Attack</div>
+              <div class="msep"></div>
+              <div class="mitem danger" data-act="stop">Stop Attack</div>
+            </div></div>
+
+            <div class="overlay" id="atkPop" hidden><div class="card2">
+              <h4 id="atkTitle">Attack</h4>
+              <div class="fld" id="chRow"><label>Target Channel:</label><input id="chIn" type="number" value="11" min="1" max="177"></div>
+              <div class="fld"><label>Select Target Station:</label>
+                <select id="staSel">
+                  <option value="AA:BB:CC:DD:EE:F1">AA:BB:CC:DD:EE:F1 (이 노트북)</option>
+                  <option value="12:34:56:78:9A:BC">12:34:56:78:9A:BC</option>
+                  <option value="FF:FF:FF:FF:FF:FF">FF:FF:FF:FF:FF:FF (Broadcast)</option>
+                </select>
+              </div>
+              <div class="btnrow"><button class="cancel" id="atkCancel">취소</button><button class="ok" id="atkOk">선택</button></div>
+            </div></div>
+
+            <div class="toast" id="toast" hidden></div>
+          </div></div>
+
+          <div class="rightcol">
+            <div class="laptop">
+              <div class="lid" id="lid">
+                <iframe id="yt" class="ytframe"
+                  src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ&controls=0&modestbranding=1&playsinline=1&rel=0"
+                  allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                <div class="spinner"><div class="spin"></div><span>버퍼링 중…</span></div>
+              </div>
+              <div class="base"></div>
+            </div>
+
+            <ul class="steps" id="steps">
+              <li data-s="scan">주변 AP/STA 스캔 (채널 홉핑)</li>
+              <li data-s="pick">대상 선택 · 공격 유형/STA/채널 설정</li>
+              <li data-s="lock">대상 채널로 고정</li>
+              <li data-s="cut" id="cutStep">프레임 주입 → 연결 해제</li>
+            </ul>
+
+            <div class="why" id="why" hidden><h5 id="whyH"></h5><p id="whyB"></p></div>
+          </div>
+        </div>
+
+        <div class="legend">
+          <b>SuNiffing 취약 판정</b> — 비콘 RSN IE의 cipher·AKM·PMF를 파싱해 <b>암호 유형 글씨를 색으로</b> 표시:<br>
+          <span class="red">취약</span> (WEP·WPA1·TKIP) ·
+          <span class="amber">PMF 없음</span> (deauth 가능) ·
+          <span class="green">견고</span> (PMF·WPA3)
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/suniffing.js"></script>
+</body>
+</html>

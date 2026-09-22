@@ -594,3 +594,90 @@
   .cursor { display: inline-block; width: 0.5rem; height: 0.9em; background: #4ade80; vertical-align: -0.1em; animation: blink 1s steps(2) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+
+  /* ===== Tools: SuNiffing 시뮬레이션 데모 ===== */
+  .suniff-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.2rem; }
+  .suniff-desc b { color: var(--text); }
+  .suniff-desc .warn { color: #c2410c; }
+
+  .suniff { font-family: system-ui, -apple-system, sans-serif; }
+  .suniff [hidden] { display: none !important; }
+
+  .suniff .sniff-stage { display:grid; grid-template-columns:300px 1fr; gap:1.5rem; align-items:stretch; }
+  @media (max-width:960px){ .suniff .sniff-stage{ grid-template-columns:1fr; justify-items:center; } }
+
+  /* 폰 */
+  .suniff .phone { width:300px; min-height:600px; background:#0b0b0d; border-radius:40px; padding:12px; box-shadow:0 20px 50px rgba(0,0,0,.35); position:relative; display:flex; flex-direction:column; }
+  .suniff .phone::before { content:""; position:absolute; top:20px; left:50%; transform:translateX(-50%); width:120px; height:22px; background:#0b0b0d; border-radius:0 0 14px 14px; z-index:5; }
+  .suniff .screen { width:100%; flex:1; min-height:0; background:#1e1e1e; border-radius:30px; overflow:hidden; display:flex; flex-direction:column; color:#e0e0e0; font-size:13px; position:relative; }
+  .suniff .statusbar { height:34px; background:#2b6cd4; display:flex; align-items:center; justify-content:space-between; padding:0 16px; font-size:11px; color:#fff; flex-shrink:0; }
+  .suniff .topbar { display:flex; gap:8px; padding:10px; }
+  .suniff .devfield { flex:1; background:#252525; border:1px solid #555; border-radius:6px; padding:8px 10px; }
+  .suniff .startbtn { border-radius:6px; padding:8px 12px; font-weight:600; cursor:pointer; border:1px solid #34613c; background:#2c5233; color:#dfe7e0; user-select:none; }
+  .suniff .startbtn.on { background:#5e2b2b; border-color:#743636; color:#f0dede; }
+  .suniff .seg { display:flex; margin:0 10px 8px; background:#202020; border:1px solid #303030; border-radius:8px; }
+  .suniff .seg div { flex:1; text-align:center; padding:7px; color:#9a9a9a; font-weight:600; border-radius:6px; }
+  .suniff .seg .on { background:#3779c2; color:#fff; }
+  .suniff .list { flex:1; overflow-y:auto; padding:0 10px; }
+  .suniff .hint { color:#6a6a6a; text-align:center; padding:40px 20px; font-size:12px; line-height:1.7; }
+  .suniff .ap { border-bottom:1px solid #2a2a2a; padding:9px 6px 9px 4px; cursor:pointer; position:relative; opacity:0; transform:translateY(6px); animation:snfade .35s forwards; }
+  .suniff .ap.sel { background:#31517d; }
+  .suniff .ap.att::before { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:#8f3a3a; }
+  .suniff .ap.gone { opacity:.28; }
+  .suniff .ap .r1 { display:flex; justify-content:space-between; align-items:baseline; }
+  .suniff .ap .r2 { display:flex; justify-content:space-between; align-items:baseline; margin-top:2px; }
+  .suniff .ap .ss{ font-weight:700; color:#fff; font-size:14px; }
+  .suniff .ap .mac{ color:#8a8a8a; font-size:10px; }
+  .suniff .ap .sec{ font-size:8.5px; font-weight:700; }
+  .suniff .ap .pwr{ font-weight:700; font-size:12px; }
+  .suniff .ap .ch{ color:#8a8a8a; font-size:10px; }
+  .suniff .red{ color:#e05656; } .suniff .amber{ color:#f9a825; } .suniff .green{ color:#4caf72; }
+  .suniff .b-strong{ color:#5fb3ff; } .suniff .b-mid{ color:#4a86c7; } .suniff .b-weak{ color:#6c7a88; }
+  @keyframes snfade{ to{ opacity:1; transform:none; } }
+  .suniff .chchip { margin:8px 10px 12px; align-self:flex-start; color:#87CEFA; font-weight:700; background:#1b1b1b; border:1px solid #2c2c2c; border-radius:8px; padding:5px 12px; font-size:12px; }
+  .suniff .banner { margin:0 10px 6px; background:#241618; border:1px solid #4f2a2d; border-radius:10px; padding:8px 10px; display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:11px; }
+  .suniff .banner .dot{ color:#c96a6a; } .suniff .banner b{ color:#fff; }
+  .suniff .banner .stop { background:#8f3a3a; color:#f0dede; border-radius:6px; padding:5px 10px; font-weight:600; cursor:pointer; }
+  .suniff .overlay { position:absolute; inset:0; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; z-index:4; }
+  .suniff .card2 { background:#2a2a2a; border:1px solid #454545; border-radius:12px; padding:16px; width:230px; }
+  .suniff .card2 h4 { font-size:14px; color:#fff; margin-bottom:12px; }
+  .suniff .band { display:block; width:100%; text-align:left; background:#333; border:1px solid #444; color:#e0e0e0; border-radius:8px; padding:9px 12px; margin-bottom:8px; cursor:pointer; font-size:12px; }
+  .suniff .band b{ color:#fff; } .suniff .band small{ color:#9a9a9a; }
+  .suniff .fld { margin-bottom:11px; }
+  .suniff .fld label{ display:block; font-size:11px; color:#aaa; margin-bottom:5px; }
+  .suniff .fld select, .suniff .fld input { width:100%; background:#252525; color:#e0e0e0; border:1px solid #555; border-radius:6px; padding:7px 8px; font-size:12px; }
+  .suniff .btnrow { display:flex; gap:8px; margin-top:4px; }
+  .suniff .btnrow button { flex:1; border-radius:8px; padding:9px; font-weight:600; font-size:12px; cursor:pointer; border:none; }
+  .suniff .btnrow .cancel { background:#2d2d2d; color:#cfcfcf; border:1px solid #555; }
+  .suniff .btnrow .ok { background:#3779c2; color:#fff; }
+  .suniff .menu { background:#2a2a2a; border:1px solid #454545; border-radius:10px; padding:6px; width:190px; }
+  .suniff .mitem { padding:9px 12px; font-size:12px; color:#e0e0e0; border-radius:6px; cursor:pointer; }
+  .suniff .mitem:hover { background:#3779c2; color:#fff; } .suniff .mitem.danger { color:#e6a5a5; }
+  .suniff .msep { height:1px; background:#3a3a3a; margin:5px 6px; }
+  .suniff .toast { position:absolute; bottom:56px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,.85); color:#fff; font-size:11px; padding:8px 14px; border-radius:20px; z-index:6; }
+
+  /* 오른쪽 */
+  .suniff .rightcol { width:100%; display:flex; flex-direction:column; gap:1rem; }
+  .suniff .laptop { width:100%; }
+  .suniff .lid { background:#0b0b0d; border:10px solid #17171a; border-radius:14px 14px 0 0; aspect-ratio:16/10; position:relative; overflow:hidden; }
+  .suniff .base { height:14px; background:linear-gradient(#cfd3d9,#9aa0a8); border-radius:0 0 16px 16px; position:relative; }
+  .suniff .base::after { content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:80px; height:5px; background:#7d838b; border-radius:0 0 7px 7px; }
+  .suniff .ytframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .suniff .spinner { position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:rgba(0,0,0,.6); color:#fff; font-size:12px; opacity:0; pointer-events:none; transition:opacity .25s; }
+  .suniff .spin { width:34px; height:34px; border:3px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:snspin 1s linear infinite; }
+  @keyframes snspin { to{ transform:rotate(360deg); } }
+  .suniff .lid.buffering .spinner { opacity:1; }
+  .suniff .steps { background:#0f172a; border:1px solid #1e293b; border-radius:14px; padding:1rem 1.2rem; color:#94a3b8; font-size:.82rem; line-height:1.95; }
+  .suniff .steps li { list-style:none; opacity:.4; transition:opacity .3s; }
+  .suniff .steps li.done { opacity:1; color:#cbd5e1; }
+  .suniff .steps li.done::before { content:"✓ "; color:#4ade80; }
+  .suniff .why { border:1px solid #1e293b; background:#0f172a; border-radius:12px; padding:.9rem 1.1rem; min-height:96px; }
+  .suniff .why.ok  { border-left:4px solid #4caf72; }
+  .suniff .why.warn{ border-left:4px solid #f9a825; }
+  .suniff .why.bad { border-left:4px solid #e05656; }
+  .suniff .why h5 { font-size:.92rem; color:#e2e8f0; margin-bottom:.4rem; }
+  .suniff .why.ok h5{ color:#7fd1a0; } .suniff .why.warn h5{ color:#f4c95d; } .suniff .why.bad h5{ color:#ef8a8a; }
+  .suniff .why p  { font-size:.82rem; color:#94a3b8; line-height:1.65; }
+  .suniff .legend { font-size:.75rem; color:#64748b; line-height:1.8; margin-top:1.25rem; }
+  .suniff .legend b{ color:#475569; }
+  .suniff .legend .red{ color:#e05656; } .suniff .legend .amber{ color:#d99a10; } .suniff .legend .green{ color:#3f9e68; }
