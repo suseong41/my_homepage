@@ -475,6 +475,17 @@
     border: 0; border-radius: 8px; cursor: pointer;
   }
   .scan-form button:disabled { opacity: 0.55; cursor: default; }
+  .sample-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem; }
+  .sample-row[hidden] { display: none; }
+  .sample-row button {
+    padding: 0.45rem 0.9rem; font: inherit; font-size: 0.85rem; color: var(--muted);
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 999px; cursor: pointer;
+  }
+  .sample-row button:hover { color: var(--text); border-color: var(--accent); }
+  .sample-run {
+    padding: 0.4rem 0.9rem; font: inherit; font-size: 0.85rem; color: #fff; background: var(--accent);
+    border: 0; border-radius: 8px; cursor: pointer;
+  }
   .scan-result { margin-top: 1rem; font-size: 0.88rem; }
   .scan-note {
     padding: 0.7rem 0.9rem; margin-bottom: 0.8rem; border-radius: 8px;

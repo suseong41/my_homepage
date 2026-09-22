@@ -92,11 +92,12 @@ function renderScan(container, data) {
 
 // ── 흘려받기 ───────────────────────────────
 
-function show(ev) {
+function show(ev, startText) {
   const name = STAGE_NAME[ev.name] ?? ev.name;
   switch (ev.t) {
     case 'start':
-      engine.add(`요청 — ${ev.url}`);
+      engine.add(startText ?? `요청 — ${ev.url}`);
+      if (startText && ev.url) engine.add(`출처로 삼은 주소 — ${ev.url}`);
       break;
     case 'begin':
       engine.add(`===== ${name} =====`, 'head');
@@ -107,7 +108,7 @@ function show(ev) {
       break;
     case 'done':
       showResult(ev.result);
-      engine.add(`완료 — 전체 ${ev.ms} ms`);
+      engine.add(`완료 — 전체 ${ev.ms ?? 0} ms`);
       break;
     case 'error':
       engine.add(ev.text, 'bad');
@@ -149,13 +150,13 @@ async function readLines(res, onEvent) {
   }
 }
 
-async function scanUrl(url, onEvent) {
+async function runScan(payload, onEvent) {
   let res;
   try {
     res = await fetch('/api/scan', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/x-ndjson' },
-      body: JSON.stringify({ url }),
+      body: JSON.stringify(payload),
     });
   } catch {
     return { ok: false, message: '서버에 연결하지 못했습니다.' };
@@ -186,22 +187,15 @@ async function scanUrl(url, onEvent) {
   return { ok: true, data: result };
 }
 
-document.getElementById('scan-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
+async function start(payload, startText) {
   const button = document.getElementById('scan-button');
   const result = document.getElementById('scan-result');
-  const url = normalizeURL(document.getElementById('scan-url').value);
 
   result.replaceChildren();
-  if (!url) {
-    line(result, 'http 또는 https 주소를 넣어 주세요.', 'scan-note');
-    return;
-  }
-
   button.disabled = true;
   engine.reset();
 
-  const out = await scanUrl(url, show);
+  const out = await runScan(payload, (ev) => show(ev, startText));
   if (out.ok) {
     engine.end('DONE', 'done');
     renderScan(result, out.data);
@@ -210,4 +204,64 @@ document.getElementById('scan-form').addEventListener('submit', async (e) => {
     line(result, out.message, 'scan-note');
   }
   button.disabled = false;
+}
+
+document.getElementById('scan-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const url = normalizeURL(document.getElementById('scan-url').value);
+  if (!url) {
+    const result = document.getElementById('scan-result');
+    result.replaceChildren();
+    line(result, 'http 또는 https 주소를 넣어 주세요.', 'scan-note');
+    return;
+  }
+  start({ url });
 });
+
+// ── 샘플 ──────────────────────────────────
+
+const sample = {
+  box: document.getElementById('sample-modal'),
+  title: document.getElementById('sample-title'),
+  body: document.getElementById('sample-body'),
+  current: null,
+
+  open(s) {
+    this.current = s;
+    this.title.textContent = s.title;
+    const pre = document.createElement('pre');
+    pre.appendChild(document.createElement('code')).textContent = s.html.join('\n');
+    this.body.replaceChildren(pre);
+    this.box.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  },
+  close() {
+    this.box.classList.remove('open');
+    document.body.style.overflow = '';
+  },
+};
+
+document.getElementById('sample-close').addEventListener('click', () => sample.close());
+sample.box.addEventListener('click', (e) => { if (e.target === sample.box) sample.close(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') sample.close(); });
+
+document.getElementById('sample-run').addEventListener('click', () => {
+  const s = sample.current;
+  sample.close();
+  start({ html: s.html.join('\n'), url: s.url }, `샘플 — ${s.title}`);
+});
+
+fetch('/assets/samples.json')
+  .then((r) => r.json())
+  .then(({ samples }) => {
+    const row = document.getElementById('sample-row');
+    samples.forEach((s, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = `샘플 ${i + 1}`;
+      b.addEventListener('click', () => sample.open(s));
+      row.appendChild(b);
+    });
+    row.hidden = false;
+  })
+  .catch(() => {});

