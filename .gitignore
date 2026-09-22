@@ -7,5 +7,5 @@ nginx/certs/
 .DS_Store
 **/.DS_Store
 
-# Go 빌드 산물 — api 는 컨테이너 안에서 빌드하지만, 손으로 돌려 볼 때 여기 생긴다
+# Go 빌드 산물
 /api/api

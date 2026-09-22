@@ -1,5 +1,3 @@
-// 스캔 결과는 남의 페이지에서 온 문자열이다 — 전부 textContent 로만 넣는다.
-
 const SEV_CLASS = { HIGH: 'sev-high', MEDIUM: 'sev-medium', LOW: 'sev-low', INFO: 'sev-info' };
 const STAGE_NAME = { fetch: '가져오기', scan: '파싱 · 규칙' };
 
@@ -59,8 +57,6 @@ const engine = {
 };
 
 // ── 결과 표 ───────────────────────────────
-
-// 표는 자세한 내용(제목·증거)만 맡는다. 무엇을 찾았는지는 터미널이 말한다.
 function renderScan(container, data) {
   container.replaceChildren();
   if (data.findings.length === 0) return;
@@ -116,7 +112,7 @@ function show(ev, startText) {
   }
 }
 
-// 발견과 참고를 로그에 찍는다 — 등급·위치·규칙까지만, 증거는 표가 맡는다.
+// 발견과 참고를 로그에 찍는다
 function showResult(result) {
   engine.add('===== 결과 =====', 'head');
   for (const note of result.notes) engine.add(note, 'note');
@@ -162,7 +158,6 @@ async function runScan(payload, onEvent) {
     return { ok: false, message: '서버에 연결하지 못했습니다.' };
   }
 
-  // 거절은 흘리기 전에 오므로 평소 JSON 이다.
   if (!res.ok) {
     const isJSON = (res.headers.get('Content-Type') || '').startsWith('application/json');
     const body = isJSON ? await res.json().catch(() => null) : null;

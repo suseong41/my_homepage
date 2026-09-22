@@ -1,6 +1,3 @@
-// 홈 화면 — 저장소 · 블로그 목록과 README 모달.
-// CSP 를 켜기 위해 인라인 스크립트와 onclick 을 걷어내고 DOM API 로 그린다.
-
 const LANG_COLORS = {
   'C++': '#f34b7d', 'C': '#555555', 'Python': '#3572A5',
   'JavaScript': '#f1e05a', 'TypeScript': '#3178c6',

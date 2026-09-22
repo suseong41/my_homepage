@@ -11,12 +11,6 @@ import (
 	"testing"
 )
 
-// 골든 파일은 **파이썬 판이 실제로 내놓은 응답**이다.
-// testdata/upstream 의 표본(진짜 티스토리 RSS · GitHub API 응답)을 먹여서 받아 두었다.
-// 표본은 갈래를 채우려고 두 곳만 손봤다 — 포크 하나(fork=true) · 별 있는 저장소 하나.
-//
-// 비교는 바이트가 아니라 **값**으로 한다. JSON 키 순서는 계약이 아니다.
-
 // upstream(): 표본 파일을 돌려주는 가짜 상류. 없는 저장소는 404 를 준다.
 func upstream(t *testing.T) *httptest.Server {
 	t.Helper()
@@ -47,7 +41,7 @@ func upstream(t *testing.T) *httptest.Server {
 	}))
 }
 
-// serve(): 가짜 상류를 보게 해 두고 라우터를 통째로 태움 — 경로 패턴까지 시험한다.
+// serve(): 가짜 상류를 보게 해 두고 라우터를 통째로 태움. 경로 패턴까지 시험.
 func serve(t *testing.T, base string) http.Handler {
 	t.Helper()
 	oldRSS, oldAPI := rssURL, githubAPI
@@ -64,7 +58,7 @@ func callAPI(t *testing.T, h http.Handler, path string) (int, []byte) {
 	return rec.Code, rec.Body.Bytes()
 }
 
-// sameJSON(): 값으로 비교 — 키 순서와 끝의 줄바꿈은 계약이 아니다.
+// sameJSON(): 값으로 비교.
 func sameJSON(t *testing.T, got []byte, goldenName string) {
 	t.Helper()
 	want, err := os.ReadFile(filepath.Join("testdata", "golden", goldenName))
@@ -91,7 +85,7 @@ func firstBytes(b []byte) string {
 	return string(b)
 }
 
-// 세 경로가 파이썬 판과 같은 값을 내놓는지 — 이 테스트가 이전의 계약이다.
+// 세 경로가 파이썬 판과 같은 값을 내놓는지
 func TestSameAsPython(t *testing.T) {
 	up := upstream(t)
 	defer up.Close()
@@ -101,8 +95,8 @@ func TestSameAsPython(t *testing.T) {
 		path   string
 		golden string
 	}{
-		{"/api/posts", "posts.json"},                   // 글 3개 · pubDate 가 2026.09.12 형식
-		{"/api/repos", "repos.json"},                   // 20개 중 포크 1개를 뺀 19개
+		{"/api/posts", "posts.json"}, // 글 3개 · pubDate 가 2026.09.12 형식
+		{"/api/repos", "repos.json"},
 		{"/api/repos/sha/readme", "readme.json"},       // base64 를 풀어 본문으로
 		{"/api/repos/없는저장소/readme", "readme_404.json"}, // 404 는 오류가 아니라 안내
 	}
@@ -157,7 +151,7 @@ func TestRepoFields(t *testing.T) {
 	}
 }
 
-// 상류가 죽으면 502 와 {"detail": …} — 원인은 밖으로 흘리지 않는다.
+// 상류가 죽으면 502 와 {"detail": …}
 func TestUpstreamDown(t *testing.T) {
 	up := upstream(t)
 	up.Close() // 닫아 두고 그 주소를 보게 한다
@@ -175,7 +169,6 @@ func TestUpstreamDown(t *testing.T) {
 	}
 }
 
-// CORS 는 허용 목록에 있는 Origin 에만 붙는다.
 func TestCORS(t *testing.T) {
 	up := upstream(t)
 	defer up.Close()
@@ -203,7 +196,7 @@ func TestCORS(t *testing.T) {
 	}
 }
 
-// 읽기 전용 API 다 — GET 아닌 것과 없는 경로는 받지 않는다.
+// 읽기 전용 API
 func TestMethodsAndPaths(t *testing.T) {
 	up := upstream(t)
 	defer up.Close()

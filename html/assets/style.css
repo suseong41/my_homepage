@@ -561,7 +561,6 @@
   .engine-lines p.note { border-left-color: #f59e0b; color: #fcd34d; }
   .engine-lines p.note::before { content: "[NOTE] "; color: #f59e0b; }
 
-  /* 발견 한 줄 — 앞머리는 등급 이름이 그대로 들어간다 */
   .engine-lines p.lv::before { content: "[" attr(data-label) "] "; font-weight: 700; }
   .engine-lines p.sev-high   { border-left-color: #ef4444; }
   .engine-lines p.sev-high::before   { color: #f87171; }
