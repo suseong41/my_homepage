@@ -224,9 +224,12 @@ const sample = {
   open(s) {
     this.current = s;
     this.title.textContent = s.title;
+    const why = document.createElement('p');
+    why.className = 'sample-why';
+    why.textContent = s.why ?? '';
     const pre = document.createElement('pre');
     pre.appendChild(document.createElement('code')).textContent = s.html.join('\n');
-    this.body.replaceChildren(pre);
+    this.body.replaceChildren(why, pre);
     this.box.classList.add('open');
     document.body.style.overflow = 'hidden';
   },

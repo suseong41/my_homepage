@@ -486,6 +486,11 @@
     padding: 0.4rem 0.9rem; font: inherit; font-size: 0.85rem; color: #fff; background: var(--accent);
     border: 0; border-radius: 8px; cursor: pointer;
   }
+  .sample-why {
+    margin-bottom: 1rem; padding: 0.8rem 1rem; border-radius: 8px;
+    background: var(--bg); border-left: 3px solid var(--accent);
+    font-size: 0.85rem; line-height: 1.8; color: var(--text);
+  }
   .scan-result { margin-top: 1rem; font-size: 0.88rem; }
   .scan-note {
     padding: 0.7rem 0.9rem; margin-bottom: 0.8rem; border-radius: 8px;
@@ -503,10 +508,10 @@
     display: inline-block; padding: 0.1rem 0.5rem; border-radius: 999px;
     font-size: 0.75rem; font-weight: 700; white-space: nowrap;
   }
-  .sev-high   { background: #fee2e2; color: #b91c1c; }
-  .sev-medium { background: #ffedd5; color: #c2410c; }
-  .sev-low    { background: #e0f2fe; color: #0369a1; }
-  .sev-info   { background: #f1f5f9; color: #475569; }
+  .sev.sev-high   { background: #fee2e2; color: #b91c1c; }
+  .sev.sev-medium { background: #ffedd5; color: #c2410c; }
+  .sev.sev-low    { background: #e0f2fe; color: #0369a1; }
+  .sev.sev-info   { background: #f1f5f9; color: #475569; }
 
   /* ── 엔진 로그 ───────────────────────── */
   .engine {
